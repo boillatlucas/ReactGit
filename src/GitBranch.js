@@ -76,10 +76,11 @@ export default class Gitbranch extends React.Component {
 
     return (
       <Paper>
+        <h1>Branch</h1> 
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Nom</TableCell>
+            <TableCell></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

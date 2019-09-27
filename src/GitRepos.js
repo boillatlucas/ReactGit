@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import TextField from '@material-ui/core/TextField';
+import IconButton from "@material-ui/core/IconButton";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import SearchIcon from "@material-ui/icons/Search";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -19,7 +23,8 @@ const Repo = ({ repo, index }) =>
   <TableCell > 
       <Link to={repo.name}>
         {repo.name}
-      </Link></TableCell>
+      </Link>
+  </TableCell>
   <TableCell >{repo.stargazers_count}</TableCell>
   <TableCell ><Avatar alt={repo.owner.login} src={repo.owner.avatar_url}  />{repo.owner.login}</TableCell>
 </TableRow>
@@ -87,7 +92,26 @@ export default class GitRepos extends React.Component {
 
     return (
       <Router>
+              <h1>Repository</h1> 
+        <TextField
+        id="outlined-search"
+        label="Search field"
+        type="search"
+        className="TextField"
+        margin="normal"
+        variant="outlined"
+        InputProps={{
+          endAdornment: (
+            <InputAdornment>
+              <IconButton>
+                <SearchIcon />
+              </IconButton>
+            </InputAdornment>
+          )
+        }}
+        />
       <Paper>
+
       <Table>
         <TableHead>
           <TableRow>
