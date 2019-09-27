@@ -5,7 +5,7 @@ import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
 import GitRepos from './GitRepos';
-
+import GitBranch from './GitBranch';
 
 function App() {
 
@@ -19,7 +19,6 @@ function App() {
         className="TextField"
         margin="normal"
         variant="outlined"
-       
         InputProps={{
           endAdornment: (
             <InputAdornment>
@@ -30,7 +29,8 @@ function App() {
           )
         }}
         />
-          <GitRepos />
+          {/* <GitRepos /> */}
+           <GitBranch />
     </div>
   );
 }

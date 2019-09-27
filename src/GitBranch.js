@@ -6,31 +6,21 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import Avatar from '@material-ui/core/Avatar';
-import Link from '@material-ui/core/Link';
-import GitBranch from './GitBranch';
-
 import { BrowserRouter as Router, Route, Linki } from "react-router-dom";
 
 
-const Repo = ({ repo, index }) =>
- <TableRow key={repo.name}>
-  <TableCell component="th" scope="row">{index + 1}</TableCell>
-  <TableCell > 
-      <Link to={repo.name}>
-        {repo.name}
-      </Link></TableCell>
-  <TableCell >{repo.stargazers_count}</TableCell>
-  <TableCell ><Avatar alt={repo.owner.login} src={repo.owner.avatar_url}  />{repo.owner.login}</TableCell>
-</TableRow>
-;
 
-export default class GitRepos extends React.Component {
+const Branch = ({ branch, index }) =>
+ <TableRow key={branch.name}>
+  <TableCell component="th" scope="row">{branch.name}</TableCell>
+</TableRow>;
+
+export default class Gitbranch extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      repos: [],
+      branchs: [],
       loading: true,
       error: null,
     };
@@ -40,14 +30,13 @@ export default class GitRepos extends React.Component {
     axios
       .get(
         window.encodeURI(
-          `https://api.github.com/search/repositories?q=name:&sort=stars&order=desc&type=Repositories`,
+          `https://api.github.com/repos/vuejs/vue/branches`,
         ),
       )
       .then(response => {
-        const repos = response.data.items;
-        console.log(repos);
+        const branchs = response.data;
         this.setState({
-          repos,
+          branchs,
           loading: false,
         });
       })
@@ -78,7 +67,7 @@ export default class GitRepos extends React.Component {
   }
 
   renderList() {
-    const { error, repos } = this.state;
+    const { error, branchs } = this.state;
 
     if (error) {
       console.log(error);
@@ -86,29 +75,20 @@ export default class GitRepos extends React.Component {
     }
 
     return (
-      <Router>
       <Paper>
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>#</TableCell>
-            <TableCell >Name</TableCell>
-            <TableCell >Stars count</TableCell>
-            <TableCell >Autor</TableCell>
+            <TableCell>Nom</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {repos.map((repo, index) =>
-            <Repo repo={repo} index={index} key={repo.id} />,
+          {branchs.map((branch, index) =>
+            <Branch branch={branch} index={index} key={branch.name} />,
           )}
         </TableBody>
       </Table>
       </Paper>
-
-          
-      <Route path="/:id" component={GitBranch} />
-
-      </Router>        
     );
   }
 
