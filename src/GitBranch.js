@@ -9,7 +9,6 @@ import Paper from '@material-ui/core/Paper';
 import { BrowserRouter as Router, Route, Linki } from "react-router-dom";
 
 
-
 const Branch = ({ branch, index }) =>
  <TableRow key={branch.name}>
   <TableCell component="th" scope="row">{branch.name}</TableCell>
@@ -18,7 +17,7 @@ const Branch = ({ branch, index }) =>
 export default class Gitbranch extends React.Component {
   constructor(props) {
     super(props);
-
+    
     this.state = {
       branchs: [],
       loading: true,
@@ -27,14 +26,17 @@ export default class Gitbranch extends React.Component {
   }
 
   componentDidMount() {
+    let str = window.location.pathname;
+    let Repository = str.substring(7);
     axios
       .get(
         window.encodeURI(
-          `https://api.github.com/repos/vuejs/vue/branches`,
+          `https://api.github.com/repos${Repository}/branches`,
         ),
       )
       .then(response => {
         const branchs = response.data;
+     
         this.setState({
           branchs,
           loading: false,

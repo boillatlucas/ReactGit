@@ -9,9 +9,9 @@ function App() {
   return (
     <div className="App">
 
-          <GitRepos />
-           {/* <GitBranch /> */}
-           {/* <GitUser />  */}
+          <GitRepos /> 
+       {/*    <GitBranch />
+          <GitUser /> */}
     </div>
   );
 }

@@ -7,19 +7,18 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Avatar from '@material-ui/core/Avatar';
-import Link from '@material-ui/core/Link';
-import { BrowserRouter as Router, Route, Linki } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 
 
 const Contrib = ({ contrib, index }) =>
  <TableRow key={contrib.login}>
   <TableCell component="th" scope="row">
-    <Link href={contrib.html_url}>
+    <Link target="_blank" href={contrib.html_url}>
         {contrib.login}
     </Link>
   </TableCell>
-  <TableCell ><Avatar alt={contrib.login} src={contrib.avatar_url}  />{contrib.login}</TableCell>
+  <TableCell ><Avatar alt={contrib.login} src={contrib.avatar_url}  /></TableCell>
 </TableRow>;
 
 export default class GitUser extends React.Component {
@@ -34,10 +33,12 @@ export default class GitUser extends React.Component {
   }
 
   componentDidMount() {
+    let str = window.location.pathname;
+    let Repository = str.substring(7);
     axios
       .get(
         window.encodeURI(
-          `https://api.github.com/repos/vuejs/vue/contributors`,
+          `https://api.github.com/repos${Repository}/contributors`,
         ),
       )
       .then(response => {
